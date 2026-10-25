@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://sahilshelke2012.github.io/sahil-calc/sitemap.xml
