@@ -2,872 +2,664 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Sahil Calc - free online maths calculators.">
-<title>Sahil Calc | Free Online Calculators</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Calculator icon for browser tab -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧮%3C/text%3E%3C/svg%3E">
+  <title>Sahil Calc – Free Online Calculator</title>
+  <meta name="description" content="Sahil Calc is a free online calculator for addition, subtraction, multiplication, division and percentages. Fast, simple and mobile friendly.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#101827">
+  <link rel="canonical" href="https://sahilshelke2012.github.io/sahil-calc/">
 
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Sahil Calc – Free Online Calculator">
+  <meta property="og:description" content="Calculate quickly with Sahil Calc, a free, easy-to-use online calculator.">
+  <meta property="og:url" content="https://sahilshelke2012.github.io/sahil-calc/">
 
-html { scroll-behavior: smooth; }
+  <style>
+    * { box-sizing: border-box; }
 
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,
-    #dbeafe, #93c5fd, #c4b5fd);
-  background-attachment: fixed;
-  color: #1e3556;
-  min-height: 100vh;
-}
+    :root {
+      --bg: #0b1120;
+      --card: #172338;
+      --button: #29374e;
+      --text: #f8fafc;
+      --muted: #a8b5c7;
+      --accent: #38bdf8;
+      --operator: #164e63;
+      --border: #334155;
+    }
 
-header {
-  background: #102d5c;
-  color: white;
-  padding: 22px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  flex-wrap: wrap;
-}
+    body.light {
+      --bg: #eef4fb;
+      --card: #ffffff;
+      --button: #e2e8f0;
+      --text: #172033;
+      --muted: #526176;
+      --accent: #0369a1;
+      --operator: #bae6fd;
+      --border: #cbd5e1;
+    }
 
-.logo {
-  font-size: 27px;
-  font-weight: bold;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      transition: background .2s, color .2s;
+    }
 
-header p { color: #c8d8f0; }
+    header {
+      padding: 22px 18px;
+      border-bottom: 1px solid var(--border);
+    }
 
-nav {
-  background: #174080;
-  padding: 15px;
-  text-align: center;
-}
+    .topbar {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
 
-nav a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  margin: 8px 15px;
-  display: inline-block;
-}
+    .logo {
+      font-size: 23px;
+      font-weight: bold;
+      color: var(--accent);
+    }
 
-nav a:hover { color: #ffd166; }
+    .theme-button {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 14px;
+      background: var(--button);
+      color: var(--text);
+      cursor: pointer;
+    }
 
-.hero {
-  background: linear-gradient(120deg,
-    #103b78, #2475cb, #6366f1);
-  text-align: center;
-  padding: 75px 20px;
-  color: white;
-}
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 36px 18px;
+    }
 
-.hero h1 {
-  font-size: clamp(30px, 5vw, 50px);
-  margin-bottom: 15px;
-}
+    .intro { text-align: center; }
 
-.hero p { font-size: 18px; }
+    h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      margin: 0 0 12px;
+    }
 
-main {
-  max-width: 1250px;
-  margin: auto;
-  padding: 45px 20px;
-}
+    .intro p, .info p, footer {
+      color: var(--muted);
+      line-height: 1.7;
+    }
 
-.section-title {
-  font-size: 30px;
-  text-align: center;
-  color: #123c78;
-  margin: 30px 0;
-}
+    .calculator {
+      max-width: 400px;
+      margin: 30px auto;
+      background: var(--card);
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 18px 45px #00000020;
+    }
 
-.grid {
-  display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(290px, 1fr));
-  gap: 24px;
-}
+    .screen {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      min-height: 100px;
+      margin-bottom: 18px;
+      overflow-wrap: anywhere;
+      text-align: right;
+    }
 
-.card {
-  background: rgba(255,255,255,.94);
-  border-radius: 18px;
-  padding: 27px;
-  box-shadow: 0 8px 25px #16345a20;
-  transition: transform .25s;
-}
+    .expression {
+      font-size: 14px;
+      color: var(--muted);
+      min-height: 20px;
+    }
 
-.card:hover {
-  transform: translateY(-4px);
-}
+    .display {
+      font-size: 34px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
 
-.card h3 {
-  color: #15549a;
-  margin-bottom: 10px;
-  font-size: 21px;
-}
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
 
-.card p {
-  color: #61748d;
-  margin-bottom: 17px;
-  font-size: 14px;
-}
+    .keys button {
+      border: 0;
+      border-radius: 12px;
+      min-height: 64px;
+      background: var(--button);
+      color: var(--text);
+      font-size: 21px;
+      cursor: pointer;
+      transition: transform .1s, filter .1s;
+    }
 
-label {
-  display: block;
-  font-size: 14px;
-  font-weight: bold;
-  margin: 12px 0 5px;
-}
+    .keys button:hover { filter: brightness(1.16); }
+    .keys button:active { transform: scale(.95); }
+    .keys button:focus-visible,
+    .theme-button:focus-visible,
+    .clear-history:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
 
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #c5d5e9;
-  border-radius: 9px;
-  font-size: 16px;
-  background: #f8fbff;
-  color: #1e3556;
-}
+    .keys .operator { background: var(--operator); }
+    .keys .equal {
+      background: #0284c7;
+      color: white;
+    }
+    .keys .clear {
+      background: #be123c;
+      color: white;
+    }
 
-input:focus, select:focus,
-textarea:focus {
-  outline: 2px solid #3b82f6;
-  border-color: transparent;
-}
+    .history {
+      max-width: 400px;
+      margin: 25px auto;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card);
+    }
 
-textarea {
-  resize: vertical;
-  min-height: 85px;
-}
+    .history h2 { margin-top: 0; }
 
-.btn {
-  width: 100%;
-  padding: 13px;
-  margin-top: 16px;
-  background: linear-gradient(120deg,
-    #1554a0, #6366f1);
-  color: white;
-  border: none;
-  border-radius: 9px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-}
+    .history-list {
+      list-style: none;
+      padding: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
 
-.btn:hover { filter: brightness(1.12); }
+    .history-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      overflow-wrap: anywhere;
+    }
 
-.result {
-  margin-top: 16px;
-  padding: 15px;
-  background: #e9f2ff;
-  border-left: 4px solid #2563eb;
-  border-radius: 8px;
-  min-height: 52px;
-  font-size: 17px;
-  font-weight: bold;
-  overflow-wrap: anywhere;
-}
+    .clear-history {
+      background: var(--button);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 10px 15px;
+      cursor: pointer;
+    }
 
-.wide { grid-column: 1 / -1; }
+    .info {
+      max-width: 700px;
+      margin: 45px auto;
+    }
 
-.calc-wrap {
-  max-width: 400px;
-  margin: auto;
-}
+    .info h2 { color: var(--accent); }
 
-.display {
-  background: #102d5c;
-  color: white;
-  text-align: right;
-  font-size: 32px;
-  padding: 20px;
-  border-radius: 12px;
-  min-height: 82px;
-  overflow-wrap: anywhere;
-}
+    footer {
+      text-align: center;
+      padding: 25px;
+      border-top: 1px solid var(--border);
+    }
 
-.keypad {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.keypad button {
-  padding: 18px 5px;
-  border: none;
-  border-radius: 10px;
-  font-size: 21px;
-  background: #e8f0ff;
-  color: #123c78;
-  cursor: pointer;
-}
-
-.keypad button:hover { background: #cbdfff; }
-
-.keypad .operator {
-  background: #c7d8ff;
-  font-weight: bold;
-}
-
-.keypad .equals {
-  background: #2563eb;
-  color: white;
-}
-
-.keypad .clear {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.about {
-  margin-top: 45px;
-  padding: 30px;
-  background: rgba(255,255,255,.92);
-  border-radius: 16px;
-  line-height: 1.8;
-}
-
-.about h2 { color: #123c78; }
-
-footer {
-  text-align: center;
-  background: #102d5c;
-  color: white;
-  padding: 28px 15px;
-  margin-top: 35px;
-}
-
-@media (max-width: 600px) {
-  header {
-    justify-content: center;
-    text-align: center;
-  }
-  .grid { grid-template-columns: 1fr; }
-  .card { padding: 22px; }
-  .hero { padding: 55px 18px; }
-}
-</style>
+    @media (max-width: 420px) {
+      .calculator { padding: 14px; }
+      .keys { gap: 8px; }
+      .keys button { min-height: 58px; }
+      .display { font-size: 29px; }
+    }
+  </style>
 </head>
 
 <body>
-
-<header>
-  <div>
-    <div class="logo">🧮 Sahil Calc</div>
-    <p>Smart Calculations, Simple Solutions</p>
-  </div>
-  <p>Free • Fast • Easy</p>
-</header>
-
-<nav>
-  <a href="#home">Home</a>
-  <a href="#tools">Calculators</a>
-  <a href="#about">About</a>
-</nav>
-
-<section class="hero" id="home">
-  <h1>All Your Calculators in One Place</h1>
-  <p>
-    Solve everyday maths problems quickly,
-    accurately and completely free!
-  </p>
-</section>
-
-<main id="tools">
-<h2 class="section-title">Explore Our Calculators</h2>
-
-<div class="grid">
-
-<!-- BASIC OPERATIONS -->
-<div class="card">
-  <h3>➕ Basic Mathematics</h3>
-  <p>Add, subtract, multiply or divide two numbers.</p>
-
-  <label for="basicA">First Number</label>
-  <input id="basicA" type="number" step="any"
-    placeholder="Enter first number">
-
-  <label for="basicB">Second Number</label>
-  <input id="basicB" type="number" step="any"
-    placeholder="Enter second number">
-
-  <label for="operation">Operation</label>
-  <select id="operation">
-    <option value="add">Addition (+)</option>
-    <option value="subtract">Subtraction (−)</option>
-    <option value="multiply">Multiplication (×)</option>
-    <option value="divide">Division (÷)</option>
-  </select>
-
-  <button class="btn" onclick="basicCalc()">
-    Calculate
-  </button>
-  <div class="result" id="basicResult">Result: —</div>
-</div>
-
-<!-- PERCENTAGE -->
-<div class="card">
-  <h3>📊 Percentage Calculator</h3>
-  <p>Find what percentage a number is of another.</p>
-
-  <label for="part">Obtained Value</label>
-  <input id="part" type="number" step="any"
-    placeholder="Example: 45">
-
-  <label for="total">Total Value</label>
-  <input id="total" type="number" step="any"
-    placeholder="Example: 60">
-
-  <button class="btn" onclick="percentageCalc()">
-    Calculate Percentage
-  </button>
-  <div class="result" id="percentResult">
-    Result: —
-  </div>
-</div>
-
-<!-- PERCENT OF A NUMBER -->
-<div class="card">
-  <h3>💯 Percentage of a Number</h3>
-  <p>Calculate a given percentage of any value.</p>
-
-  <label for="percentAmount">Percentage (%)</label>
-  <input id="percentAmount" type="number"
-    step="any" placeholder="Example: 20">
-
-  <label for="percentBase">Number</label>
-  <input id="percentBase" type="number"
-    step="any" placeholder="Example: 500">
-
-  <button class="btn" onclick="percentOfNumber()">
-    Calculate
-  </button>
-  <div class="result" id="percentOfResult">
-    Result: —
-  </div>
-</div>
-
-<!-- AVERAGE -->
-<div class="card">
-  <h3>📈 Average Calculator</h3>
-  <p>Find the mean of multiple numbers.</p>
-
-  <label for="averageValues">Numbers</label>
-  <textarea id="averageValues"
-    placeholder="Example: 10, 20, 30, 40"></textarea>
-
-  <button class="btn" onclick="averageCalc()">
-    Find Average
-  </button>
-  <div class="result" id="averageResult">
-    Result: —
-  </div>
-</div>
-
-<!-- SCHOOL MARKS -->
-<div class="card">
-  <h3>🎓 School Marks Calculator</h3>
-  <p>Calculate your overall examination percentage.</p>
-
-  <label for="marksObtained">Total Marks Obtained</label>
-  <input id="marksObtained" type="number"
-    step="any" placeholder="Example: 420">
-
-  <label for="marksMaximum">Maximum Marks</label>
-  <input id="marksMaximum" type="number"
-    step="any" placeholder="Example: 500">
-
-  <button class="btn" onclick="marksCalc()">
-    Calculate Marks
-  </button>
-  <div class="result" id="marksResult">
-    Result: —
-  </div>
-</div>
-
-<!-- PERCENTAGE CHANGE -->
-<div class="card">
-  <h3>📉 Percentage Change</h3>
-  <p>Calculate percentage increase or decrease.</p>
-
-  <label for="oldValue">Original Value</label>
-  <input id="oldValue" type="number"
-    step="any" placeholder="Example: 100">
-
-  <label for="newValue">New Value</label>
-  <input id="newValue" type="number"
-    step="any" placeholder="Example: 120">
-
-  <button class="btn" onclick="changeCalc()">
-    Calculate Change
-  </button>
-  <div class="result" id="changeResult">
-    Result: —
-  </div>
-</div>
-
-<!-- POWERS -->
-<div class="card">
-  <h3>⚡ Power Calculator</h3>
-  <p>Raise any number to a given power.</p>
-
-  <label for="powerBase">Base Number</label>
-  <input id="powerBase" type="number"
-    step="any" placeholder="Example: 2">
-
-  <label for="powerExponent">Exponent</label>
-  <input id="powerExponent" type="number"
-    step="any" placeholder="Example: 3">
-
-  <button class="btn" onclick="powerCalc()">
-    Calculate Power
-  </button>
-  <div class="result" id="powerResult">
-    Result: —
-  </div>
-</div>
-
-<!-- SQUARE ROOT -->
-<div class="card">
-  <h3>√ Square Root</h3>
-  <p>Find the square root of a non-negative number.</p>
-
-  <label for="rootNumber">Enter Number</label>
-  <input id="rootNumber" type="number"
-    step="any" placeholder="Example: 144">
-
-  <button class="btn" onclick="rootCalc()">
-    Calculate Square Root
-  </button>
-  <div class="result" id="rootResult">
-    Result: —
-  </div>
-</div>
-
-<!-- DISCOUNT -->
-<div class="card">
-  <h3>🏷️ Discount Calculator</h3>
-  <p>Find the final price after a discount.</p>
-
-  <label for="originalPrice">Original Price (₹)</label>
-  <input id="originalPrice" type="number"
-    step="any" placeholder="Example: 1000">
-
-  <label for="discountRate">Discount (%)</label>
-  <input id="discountRate" type="number"
-    step="any" placeholder="Example: 20">
-
-  <button class="btn" onclick="discountCalc()">
-    Calculate Discount
-  </button>
-  <div class="result" id="discountResult">
-    Result: —
-  </div>
-</div>
-
-<!-- SIMPLE INTEREST -->
-<div class="card">
-  <h3>🏦 Simple Interest</h3>
-  <p>Calculate interest using an annual interest rate.</p>
-
-  <label for="principal">Principal Amount (₹)</label>
-  <input id="principal" type="number"
-    step="any" placeholder="Example: 5000">
-
-  <label for="interestRate">Annual Rate (%)</label>
-  <input id="interestRate" type="number"
-    step="any" placeholder="Example: 5">
-
-  <label for="interestYears">Time (Years)</label>
-  <input id="interestYears" type="number"
-    step="any" placeholder="Example: 2">
-
-  <button class="btn" onclick="interestCalc()">
-    Calculate Interest
-  </button>
-  <div class="result" id="interestResult">
-    Result: —
-  </div>
-</div>
-
-<!-- STANDARD CALCULATOR -->
-<div class="card wide">
-  <h3 style="text-align:center">
-    🔢 Standard Calculator
-  </h3>
-  <p style="text-align:center">
-    Use the keypad for quick calculations.
-  </p>
-
-  <div class="calc-wrap">
-    <div class="display" id="display"
-      aria-live="polite">0</div>
-
-    <div class="keypad">
-      <button class="clear" onclick="clearDisplay()">C</button>
-      <button onclick="backspace()">⌫</button>
-      <button onclick="appendOperator('%')">%</button>
-      <button class="operator"
-        onclick="appendOperator('/')">÷</button>
-
-      <button onclick="appendDigit('7')">7</button>
-      <button onclick="appendDigit('8')">8</button>
-      <button onclick="appendDigit('9')">9</button>
-      <button class="operator"
-        onclick="appendOperator('*')">×</button>
-
-      <button onclick="appendDigit('4')">4</button>
-      <button onclick="appendDigit('5')">5</button>
-      <button onclick="appendDigit('6')">6</button>
-      <button class="operator"
-        onclick="appendOperator('-')">−</button>
-
-      <button onclick="appendDigit('1')">1</button>
-      <button onclick="appendDigit('2')">2</button>
-      <button onclick="appendDigit('3')">3</button>
-      <button class="operator"
-        onclick="appendOperator('+')">+</button>
-
-      <button onclick="appendDigit('0')">0</button>
-      <button onclick="appendDigit('.')">.</button>
-      <button onclick="toggleSign()">±</button>
-      <button class="equals"
-        onclick="calculateDisplay()">=</button>
+  <header>
+    <div class="topbar">
+      <div class="logo">⚡ Sahil Calc</div>
+      <button class="theme-button" id="themeButton" type="button">
+        ☀️ Light Mode
+      </button>
     </div>
-  </div>
-</div>
+  </header>
 
-</div>
+  <main>
+    <section class="intro">
+      <h1>Sahil Calc – Free Online Calculator</h1>
+      <p>
+        A fast, simple and free calculator for
+        everyday mathematical calculations.
+      </p>
+    </section>
 
-<section class="about" id="about">
-  <h2>About Sahil Calc</h2>
-  <p>
-    Sahil Calc is a free online calculator website
-    designed to make everyday mathematics simpler.
-    Our collection of calculators helps students,
-    teachers, professionals and anyone who needs
-    quick mathematical solutions.
-  </p>
-  <p>
-    Whether you're calculating percentages,
-    finding averages, checking school marks,
-    calculating discounts or solving arithmetic
-    problems, Sahil Calc brings essential tools
-    together in one convenient place.
-  </p>
-  <p>
-    All calculations run directly in your browser.
-    No account is required, and values entered
-    into these calculators are not sent to a server.
-  </p>
-  <p>
-    Sahil Calc is a demonstration project.
-    Please verify important financial or
-    academic calculations independently.
-  </p>
-</section>
+    <section class="calculator" aria-label="Online calculator">
+      <div class="screen" aria-live="polite" aria-atomic="true">
+        <div class="expression" id="expression"></div>
+        <div class="display" id="display">0</div>
+      </div>
 
-</main>
+      <div class="keys" id="keys">
+        <button class="clear" data-action="clear">AC</button>
+        <button data-action="delete">DEL</button>
+        <button data-action="percent">%</button>
+        <button class="operator" data-value="/">÷</button>
 
-<footer>
-  <p>© 2026 Sahil Calc. All Rights Reserved.</p>
-  <p>Made with HTML, CSS & JavaScript</p>
-</footer>
+        <button data-value="7">7</button>
+        <button data-value="8">8</button>
+        <button data-value="9">9</button>
+        <button class="operator" data-value="*">×</button>
 
-<script>
-"use strict";
+        <button data-value="4">4</button>
+        <button data-value="5">5</button>
+        <button data-value="6">6</button>
+        <button class="operator" data-value="-">−</button>
 
-function numberFrom(id) {
-  const input = document.getElementById(id);
-  if (input.value.trim() === "") {
-    throw new Error("Please fill in all required fields.");
-  }
-  const value = Number(input.value);
-  if (!Number.isFinite(value)) {
-    throw new Error("Please enter a valid number.");
-  }
-  return value;
-}
+        <button data-value="1">1</button>
+        <button data-value="2">2</button>
+        <button data-value="3">3</button>
+        <button class="operator" data-value="+">+</button>
 
-function format(value) {
-  if (!Number.isFinite(value)) {
-    throw new Error("Result is too large or undefined.");
-  }
-  return Number(value.toPrecision(12)).toLocaleString(
-    "en-IN", { maximumFractionDigits: 12 }
-  );
-}
+        <button data-action="sign">±</button>
+        <button data-value="0">0</button>
+        <button data-value=".">.</button>
+        <button class="equal" data-action="equal">=</button>
+      </div>
+    </section>
 
-function show(id, callback) {
-  const output = document.getElementById(id);
-  try {
-    output.textContent = "Result: " + callback();
-  } catch (error) {
-    output.textContent = error.message;
-  }
-}
+    <section class="history">
+      <h2>Calculation History</h2>
+      <ul class="history-list" id="historyList">
+        <li>No calculations yet.</li>
+      </ul>
+      <button class="clear-history" id="clearHistory">
+        Clear History
+      </button>
+    </section>
 
-function basicCalc() {
-  show("basicResult", () => {
-    const a = numberFrom("basicA");
-    const b = numberFrom("basicB");
-    const operation =
-      document.getElementById("operation").value;
-    let result;
+    <section class="info">
+      <h2>About Sahil Calc</h2>
+      <p>
+        Sahil Calc is a free online calculator
+        designed for quick and easy calculations.
+        You can add, subtract, multiply, divide
+        and calculate percentages directly in
+        your browser.
+      </p>
 
-    switch (operation) {
-      case "add": result = a + b; break;
-      case "subtract": result = a - b; break;
-      case "multiply": result = a * b; break;
-      case "divide":
-        if (b === 0) {
-          throw new Error("Cannot divide by zero.");
+      <h2>How to Use This Calculator</h2>
+      <p>
+        Enter numbers using the calculator buttons
+        or your keyboard. Choose an operation and
+        press equals to calculate the result.
+        Use AC to start again or DEL to correct
+        your input.
+      </p>
+
+      <h2>Features</h2>
+      <p>
+        Sahil Calc supports basic arithmetic,
+        decimal calculations, percentages,
+        keyboard input, calculation history,
+        dark mode and light mode. It works
+        on desktop and mobile browsers.
+      </p>
+
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>Is Sahil Calc free?</h3>
+      <p>
+        Yes. Sahil Calc is completely free
+        to use, with no registration required.
+      </p>
+
+      <h3>Can I use Sahil Calc on my phone?</h3>
+      <p>
+        Yes. The calculator has a responsive
+        design for phones, tablets and computers.
+      </p>
+
+      <h3>Does Sahil Calc save my calculations?</h3>
+      <p>
+        Recent calculations are saved locally
+        in your browser when local storage is
+        available. You can clear them anytime.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Sahil Calc. All rights reserved.</p>
+    <p>Free Online Calculator</p>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const display = document.getElementById("display");
+    const expressionDisplay = document.getElementById("expression");
+    const historyList = document.getElementById("historyList");
+    const themeButton = document.getElementById("themeButton");
+
+    let current = "0";
+    let previous = null;
+    let operator = null;
+    let waiting = false;
+    let error = false;
+    let history = [];
+
+    try {
+      const saved = JSON.parse(localStorage.getItem("sahilHistory"));
+      if (Array.isArray(saved)) {
+        history = saved.filter(item =>
+          item &&
+          typeof item.expression === "string" &&
+          typeof item.result === "string"
+        ).slice(0, 10);
+      }
+    } catch (e) {
+      history = [];
+    }
+
+    try {
+      if (localStorage.getItem("sahilTheme") === "light") {
+        document.body.classList.add("light");
+      }
+    } catch (e) {}
+
+    updateThemeButton();
+
+    function formatNumber(number) {
+      if (!Number.isFinite(number)) return "Error";
+      const rounded = Number(number.toPrecision(12));
+      return String(Object.is(rounded, -0) ? 0 : rounded);
+    }
+
+    function symbol(op) {
+      return { "*": "×", "/": "÷", "-": "−", "+": "+" }[op] || op;
+    }
+
+    function updateDisplay() {
+      display.textContent = current;
+      expressionDisplay.textContent =
+        operator !== null
+          ? previous + " " + symbol(operator)
+          : "";
+    }
+
+    function reset() {
+      current = "0";
+      previous = null;
+      operator = null;
+      waiting = false;
+      error = false;
+      updateDisplay();
+    }
+
+    function inputDigit(digit) {
+      if (error) reset();
+
+      if (waiting) {
+        current = digit;
+        waiting = false;
+      } else if (current === "0") {
+        current = digit;
+      } else if (current === "-0") {
+        current = "-" + digit;
+      } else if (current.replace(/[-.]/g, "").length < 15) {
+        current += digit;
+      }
+
+      updateDisplay();
+    }
+
+    function inputDecimal() {
+      if (error) reset();
+
+      if (waiting) {
+        current = "0.";
+        waiting = false;
+      } else if (!current.includes(".")) {
+        current += ".";
+      }
+
+      updateDisplay();
+    }
+
+    function calculate(a, b, op) {
+      switch (op) {
+        case "+": return a + b;
+        case "-": return a - b;
+        case "*": return a * b;
+        case "/": return b === 0 ? NaN : a / b;
+        default: return b;
+      }
+    }
+
+    function setOperator(nextOperator) {
+      if (error) return;
+
+      if (operator !== null && !waiting) {
+        const result = calculate(
+          Number(previous),
+          Number(current),
+          operator
+        );
+
+        if (!Number.isFinite(result)) {
+          showError();
+          return;
         }
-        result = a / b;
-        break;
+
+        current = formatNumber(result);
+      }
+
+      previous = current;
+      operator = nextOperator;
+      waiting = true;
+      updateDisplay();
     }
-    return format(result);
-  });
-}
 
-function percentageCalc() {
-  show("percentResult", () => {
-    const part = numberFrom("part");
-    const total = numberFrom("total");
-    if (total === 0) {
-      throw new Error("Total cannot be zero.");
+    function showError() {
+      current = "Error";
+      previous = null;
+      operator = null;
+      waiting = false;
+      error = true;
+      updateDisplay();
     }
-    return format(part / total * 100) + "%";
-  });
-}
 
-function percentOfNumber() {
-  show("percentOfResult", () => {
-    const percent = numberFrom("percentAmount");
-    const number = numberFrom("percentBase");
-    return format(percent / 100 * number);
-  });
-}
+    function equals() {
+      if (error || operator === null || waiting) return;
 
-function averageCalc() {
-  show("averageResult", () => {
-    const text =
-      document.getElementById("averageValues").value;
-    const parts = text.split(/[,;\s]+/).filter(Boolean);
-    if (!parts.length) {
-      throw new Error("Enter numbers separated by commas.");
+      const a = Number(previous);
+      const b = Number(current);
+      const result = calculate(a, b, operator);
+
+      if (!Number.isFinite(result)) {
+        showError();
+        return;
+      }
+
+      const formatted = formatNumber(result);
+      const calculation =
+        previous + " " + symbol(operator) +
+        " " + current;
+
+      addHistory(calculation, formatted);
+
+      current = formatted;
+      previous = null;
+      operator = null;
+      waiting = true;
+      updateDisplay();
+
+      expressionDisplay.textContent =
+        calculation + " =";
     }
-    const values = parts.map(Number);
-    if (values.some(n => !Number.isFinite(n))) {
-      throw new Error("Enter valid numbers only.");
+
+    function deleteLast() {
+      if (error) {
+        reset();
+        return;
+      }
+
+      if (waiting) return;
+
+      current = current.length > 1
+        ? current.slice(0, -1)
+        : "0";
+
+      if (current === "-" || current === "") {
+        current = "0";
+      }
+
+      updateDisplay();
     }
-    const sum = values.reduce((a, b) => a + b, 0);
-    return format(sum / values.length);
-  });
-}
 
-function marksCalc() {
-  show("marksResult", () => {
-    const obtained = numberFrom("marksObtained");
-    const maximum = numberFrom("marksMaximum");
-    if (maximum <= 0 || obtained < 0 ||
-        obtained > maximum) {
-      throw new Error("Check your obtained and maximum marks.");
+    function percent() {
+      if (error) return;
+
+      current = formatNumber(Number(current) / 100);
+      waiting = false;
+      updateDisplay();
     }
-    return format(obtained / maximum * 100) + "%";
-  });
-}
 
-function changeCalc() {
-  show("changeResult", () => {
-    const oldValue = numberFrom("oldValue");
-    const newValue = numberFrom("newValue");
-    if (oldValue === 0) {
-      throw new Error(
-        "Percentage change from zero is undefined."
-      );
+    function toggleSign() {
+      if (error) return;
+
+      if (current.startsWith("-")) {
+        current = current.slice(1);
+      } else if (Number(current) !== 0) {
+        current = "-" + current;
+      }
+
+      updateDisplay();
     }
-    const change =
-      (newValue - oldValue) / Math.abs(oldValue) * 100;
-    const direction = change > 0 ? "Increase" :
-      change < 0 ? "Decrease" : "No change";
-    return direction + ": " + format(Math.abs(change)) + "%";
-  });
-}
 
-function powerCalc() {
-  show("powerResult", () => {
-    const base = numberFrom("powerBase");
-    const exponent = numberFrom("powerExponent");
-    return format(Math.pow(base, exponent));
-  });
-}
+    function addHistory(expression, result) {
+      history.unshift({ expression, result });
+      history = history.slice(0, 10);
 
-function rootCalc() {
-  show("rootResult", () => {
-    const number = numberFrom("rootNumber");
-    if (number < 0) {
-      throw new Error(
-        "Enter a non-negative number."
-      );
+      try {
+        localStorage.setItem(
+          "sahilHistory",
+          JSON.stringify(history)
+        );
+      } catch (e) {}
+
+      renderHistory();
     }
-    return format(Math.sqrt(number));
-  });
-}
 
-function discountCalc() {
-  show("discountResult", () => {
-    const price = numberFrom("originalPrice");
-    const discount = numberFrom("discountRate");
-    if (price < 0 || discount < 0 || discount > 100) {
-      throw new Error(
-        "Price must be non-negative and discount 0–100%."
-      );
+    function renderHistory() {
+      historyList.replaceChildren();
+
+      if (history.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "No calculations yet.";
+        historyList.appendChild(li);
+        return;
+      }
+
+      history.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent =
+          item.expression + " = " + item.result;
+        historyList.appendChild(li);
+      });
     }
-    const saved = price * discount / 100;
-    const finalPrice = price - saved;
-    return "₹" + format(finalPrice) +
-      " (You save ₹" + format(saved) + ")";
-  });
-}
 
-function interestCalc() {
-  show("interestResult", () => {
-    const principal = numberFrom("principal");
-    const rate = numberFrom("interestRate");
-    const years = numberFrom("interestYears");
-    if (principal < 0 || rate < 0 || years < 0) {
-      throw new Error("Enter non-negative values.");
+    document.getElementById("keys").addEventListener(
+      "click",
+      event => {
+        const button = event.target.closest("button");
+        if (!button) return;
+
+        const value = button.dataset.value;
+        const action = button.dataset.action;
+
+        if (value !== undefined) {
+          if (/^[0-9]$/.test(value)) inputDigit(value);
+          else if (value === ".") inputDecimal();
+          else setOperator(value);
+        } else {
+          switch (action) {
+            case "clear": reset(); break;
+            case "delete": deleteLast(); break;
+            case "percent": percent(); break;
+            case "sign": toggleSign(); break;
+            case "equal": equals(); break;
+          }
+        }
+      }
+    );
+
+    document.addEventListener("keydown", event => {
+      if (event.ctrlKey || event.altKey || event.metaKey) {
+        return;
+      }
+
+      const key = event.key;
+
+      if (/^[0-9]$/.test(key)) inputDigit(key);
+      else if (key === ".") inputDecimal();
+      else if (["+", "-", "*", "/"].includes(key)) {
+        event.preventDefault();
+        setOperator(key);
+      } else if (key === "Enter" || key === "=") {
+        event.preventDefault();
+        equals();
+      } else if (key === "Backspace") {
+        event.preventDefault();
+        deleteLast();
+      } else if (key === "Escape") {
+        reset();
+      } else if (key === "%") {
+        percent();
+      }
+    });
+
+    document.getElementById("clearHistory")
+      .addEventListener("click", () => {
+        history = [];
+
+        try {
+          localStorage.removeItem("sahilHistory");
+        } catch (e) {}
+
+        renderHistory();
+      });
+
+    function updateThemeButton() {
+      themeButton.textContent =
+        document.body.classList.contains("light")
+          ? "🌙 Dark Mode"
+          : "☀️ Light Mode";
     }
-    const interest = principal * rate * years / 100;
-    return "Interest: ₹" + format(interest) +
-      " | Total: ₹" + format(principal + interest);
-  });
-}
 
-// Standard keypad calculator.
-// Operators are processed in order of entry.
-let current = "0";
-let stored = null;
-let pending = null;
-let fresh = false;
+    themeButton.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      updateThemeButton();
 
-function renderDisplay() {
-  document.getElementById("display").textContent =
-    current;
-}
+      try {
+        localStorage.setItem(
+          "sahilTheme",
+          document.body.classList.contains("light")
+            ? "light"
+            : "dark"
+        );
+      } catch (e) {}
+    });
 
-function appendDigit(digit) {
-  if (current === "Error" || fresh) {
-    current = "0";
-    fresh = false;
-  }
-
-  if (digit === ".") {
-    if (!current.includes(".")) current += ".";
-  } else if (current === "0") {
-    current = digit;
-  } else if (current === "-0") {
-    current = "-" + digit;
-  } else if (current.replace(/[-.]/g, "").length < 15) {
-    current += digit;
-  }
-  renderDisplay();
-}
-
-function compute(a, b, operator) {
-  switch (operator) {
-    case "+": return a + b;
-    case "-": return a - b;
-    case "*": return a * b;
-    case "/":
-      if (b === 0) throw new Error("Division by zero");
-      return a / b;
-  }
-  return b;
-}
-
-function appendOperator(operator) {
-  if (operator === "%") {
-    current = String(Number(current) / 100);
-    renderDisplay();
-    return;
-  }
-
-  if (current === "Error") return;
-
-  try {
-    const value = Number(current);
-    if (pending !== null && !fresh) {
-      stored = compute(stored, value, pending);
-      current = String(Number(stored.toPrecision(12)));
-    } else {
-      stored = value;
-    }
-    pending = operator;
-    fresh = true;
-  } catch {
-    current = "Error";
-    stored = null;
-    pending = null;
-  }
-  renderDisplay();
-}
-
-function calculateDisplay() {
-  if (pending === null || fresh) return;
-  try {
-    const answer =
-      compute(stored, Number(current), pending);
-    if (!Number.isFinite(answer)) throw new Error();
-    current = String(Number(answer.toPrecision(12)));
-    fresh = true;
-  } catch {
-    current = "Error";
-  }
-  stored = null;
-  pending = null;
-  renderDisplay();
-}
-
-function clearDisplay() {
-  current = "0";
-  stored = null;
-  pending = null;
-  fresh = false;
-  renderDisplay();
-}
-
-function backspace() {
-  if (current === "Error" || fresh) {
-    current = "0";
-    fresh = false;
-  } else {
-    current = current.length <= 1 ||
-      (current.length === 2 && current.startsWith("-"))
-      ? "0" : current.slice(0, -1);
-  }
-  renderDisplay();
-}
-
-function toggleSign() {
-  if (current !== "Error" && Number(current) !== 0) {
-    current = current.startsWith("-")
-      ? current.slice(1) : "-" + current;
-    renderDisplay();
-  }
-}
-</script>
-
+    renderHistory();
+    updateDisplay();
+  </script>
 </body>
 </html>
