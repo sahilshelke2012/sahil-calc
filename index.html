@@ -2,664 +2,599 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Sahil Calc – Free Online Calculator</title>
-  <meta name="description" content="Sahil Calc is a free online calculator for addition, subtraction, multiplication, division and percentages. Fast, simple and mobile friendly.">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#101827">
-  <link rel="canonical" href="https://sahilshelke2012.github.io/sahil-calc/">
+<title>Sahil Calc | Free Online Percentage, Marks & Average Calculator</title>
+<meta name="description" content="Use Sahil Calc for free online calculations. Calculate percentages, exam marks percentages, averages, addition, subtraction, multiplication and division.">
+<meta name="robots" content="index,follow,max-snippet:-1">
+<meta name="author" content="Sahil Calc">
+<meta name="theme-color" content="#101827">
+<link rel="canonical" href="https://sahilshelke2012.github.io/sahil-calc/">
 
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Sahil Calc – Free Online Calculator">
-  <meta property="og:description" content="Calculate quickly with Sahil Calc, a free, easy-to-use online calculator.">
-  <meta property="og:url" content="https://sahilshelke2012.github.io/sahil-calc/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sahil Calc">
+<meta property="og:title" content="Sahil Calc | Free Online Calculators">
+<meta property="og:description" content="Free percentage, marks percentage, average and basic calculators.">
+<meta property="og:url" content="https://sahilshelke2012.github.io/sahil-calc/">
 
-  <style>
-    * { box-sizing: border-box; }
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sahil Calc – Free Online Calculator">
+<meta name="twitter:description" content="Calculate percentages, averages and exam marks online for free.">
 
-    :root {
-      --bg: #0b1120;
-      --card: #172338;
-      --button: #29374e;
-      --text: #f8fafc;
-      --muted: #a8b5c7;
-      --accent: #38bdf8;
-      --operator: #164e63;
-      --border: #334155;
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Sahil Calc",
+  "url": "https://sahilshelke2012.github.io/sahil-calc/",
+  "description": "A free online calculator with basic arithmetic, percentage, marks percentage and average calculators.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any modern web browser",
+  "browserRequirements": "JavaScript enabled",
+  "isAccessibleForFree": true,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR"
+  }
+}
+</script>
 
-    body.light {
-      --bg: #eef4fb;
-      --card: #ffffff;
-      --button: #e2e8f0;
-      --text: #172033;
-      --muted: #526176;
-      --accent: #0369a1;
-      --operator: #bae6fd;
-      --border: #cbd5e1;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, sans-serif;
-      transition: background .2s, color .2s;
-    }
-
-    header {
-      padding: 22px 18px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .topbar {
-      max-width: 1000px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .logo {
-      font-size: 23px;
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    .theme-button {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 11px 14px;
-      background: var(--button);
-      color: var(--text);
-      cursor: pointer;
-    }
-
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 36px 18px;
-    }
-
-    .intro { text-align: center; }
-
-    h1 {
-      font-size: clamp(28px, 5vw, 42px);
-      margin: 0 0 12px;
-    }
-
-    .intro p, .info p, footer {
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .calculator {
-      max-width: 400px;
-      margin: 30px auto;
-      background: var(--card);
-      padding: 22px;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: 0 18px 45px #00000020;
-    }
-
-    .screen {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      min-height: 100px;
-      margin-bottom: 18px;
-      overflow-wrap: anywhere;
-      text-align: right;
-    }
-
-    .expression {
-      font-size: 14px;
-      color: var(--muted);
-      min-height: 20px;
-    }
-
-    .display {
-      font-size: 34px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .keys {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
-
-    .keys button {
-      border: 0;
-      border-radius: 12px;
-      min-height: 64px;
-      background: var(--button);
-      color: var(--text);
-      font-size: 21px;
-      cursor: pointer;
-      transition: transform .1s, filter .1s;
-    }
-
-    .keys button:hover { filter: brightness(1.16); }
-    .keys button:active { transform: scale(.95); }
-    .keys button:focus-visible,
-    .theme-button:focus-visible,
-    .clear-history:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    .keys .operator { background: var(--operator); }
-    .keys .equal {
-      background: #0284c7;
-      color: white;
-    }
-    .keys .clear {
-      background: #be123c;
-      color: white;
-    }
-
-    .history {
-      max-width: 400px;
-      margin: 25px auto;
-      padding: 20px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: var(--card);
-    }
-
-    .history h2 { margin-top: 0; }
-
-    .history-list {
-      list-style: none;
-      padding: 0;
-      max-height: 200px;
-      overflow-y: auto;
-    }
-
-    .history-list li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      overflow-wrap: anywhere;
-    }
-
-    .clear-history {
-      background: var(--button);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 10px 15px;
-      cursor: pointer;
-    }
-
-    .info {
-      max-width: 700px;
-      margin: 45px auto;
-    }
-
-    .info h2 { color: var(--accent); }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      border-top: 1px solid var(--border);
-    }
-
-    @media (max-width: 420px) {
-      .calculator { padding: 14px; }
-      .keys { gap: 8px; }
-      .keys button { min-height: 58px; }
-      .display { font-size: 29px; }
-    }
-  </style>
+<style>
+:root {
+  --bg:#0b1120;
+  --card:#172338;
+  --field:#101827;
+  --text:#f8fafc;
+  --muted:#b3c1d4;
+  --accent:#38bdf8;
+  --border:#334155;
+  --btn:#29374e;
+}
+body.light {
+  --bg:#eef4fb;
+  --card:#ffffff;
+  --field:#f8fafc;
+  --text:#172033;
+  --muted:#526176;
+  --accent:#0369a1;
+  --border:#cbd5e1;
+  --btn:#e2e8f0;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  line-height:1.6;
+}
+header,footer {
+  padding:20px;
+  border-bottom:1px solid var(--border);
+}
+header .bar {
+  max-width:1000px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.logo {
+  font-size:24px;
+  font-weight:bold;
+  color:var(--accent);
+}
+main {
+  max-width:1000px;
+  margin:auto;
+  padding:25px 16px;
+}
+.hero {
+  text-align:center;
+  padding:15px 0 25px;
+}
+h1 {
+  font-size:clamp(28px,5vw,42px);
+  line-height:1.2;
+}
+h2 {color:var(--accent)}
+p {color:var(--muted)}
+.tabs {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:25px;
+}
+button {
+  cursor:pointer;
+  font:inherit;
+  border-radius:11px;
+  border:1px solid var(--border);
+  background:var(--btn);
+  color:var(--text);
+  padding:12px;
+}
+button:focus-visible,input:focus-visible,textarea:focus-visible {
+  outline:3px solid var(--accent);
+  outline-offset:2px;
+}
+.tab.active,.primary {
+  background:#0284c7;
+  color:white;
+  border-color:#0284c7;
+}
+.panel {display:none}
+.panel.active {display:block}
+.card {
+  max-width:470px;
+  margin:0 auto 22px;
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:var(--card);
+}
+.screen {
+  padding:18px;
+  background:var(--field);
+  border-radius:12px;
+  text-align:right;
+  overflow-wrap:anywhere;
+  margin-bottom:16px;
+}
+#expression {
+  color:var(--muted);
+  min-height:24px;
+}
+#display {
+  font-size:34px;
+  font-weight:bold;
+}
+.keys {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:9px;
+}
+.keys button {
+  min-height:60px;
+  font-size:20px;
+}
+.keys .equal {background:#0284c7;color:white}
+.keys .clear {background:#be123c;color:white}
+label {
+  display:block;
+  margin:15px 0 7px;
+  font-weight:bold;
+}
+input,textarea {
+  width:100%;
+  padding:13px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--field);
+  color:var(--text);
+  font:inherit;
+}
+textarea {min-height:110px;resize:vertical}
+.primary {
+  width:100%;
+  margin-top:18px;
+  font-weight:bold;
+}
+.result {
+  padding:15px;
+  background:var(--field);
+  border-radius:12px;
+  margin-top:18px;
+  overflow-wrap:anywhere;
+}
+.info {
+  max-width:760px;
+  margin:45px auto;
+}
+.info section {margin:30px 0}
+.history-list {
+  padding-left:20px;
+  overflow-wrap:anywhere;
+}
+footer {
+  text-align:center;
+  border-top:1px solid var(--border);
+  border-bottom:none;
+}
+@media(max-width:450px) {
+  .card {padding:14px}
+  .keys button {min-height:55px}
+  .tab {flex:1 1 135px}
+}
+</style>
 </head>
 
 <body>
-  <header>
-    <div class="topbar">
-      <div class="logo">⚡ Sahil Calc</div>
-      <button class="theme-button" id="themeButton" type="button">
-        ☀️ Light Mode
-      </button>
-    </div>
-  </header>
+<header>
+  <div class="bar">
+    <div class="logo">⚡ Sahil Calc</div>
+    <button id="theme" type="button">☀️ Light Mode</button>
+  </div>
+</header>
 
-  <main>
-    <section class="intro">
-      <h1>Sahil Calc – Free Online Calculator</h1>
-      <p>
-        A fast, simple and free calculator for
-        everyday mathematical calculations.
-      </p>
-    </section>
+<main>
+  <section class="hero">
+    <h1>Sahil Calc – Free Online Calculator</h1>
+    <p>Calculate percentages, exam marks, averages and everyday maths quickly and easily.</p>
+  </section>
 
-    <section class="calculator" aria-label="Online calculator">
-      <div class="screen" aria-live="polite" aria-atomic="true">
-        <div class="expression" id="expression"></div>
-        <div class="display" id="display">0</div>
+  <nav class="tabs" aria-label="Calculator tools">
+    <button class="tab active" data-tab="basic" aria-pressed="true">🧮 Basic</button>
+    <button class="tab" data-tab="percentage" aria-pressed="false">📊 Percentage</button>
+    <button class="tab" data-tab="marks" aria-pressed="false">🎓 Marks</button>
+    <button class="tab" data-tab="average" aria-pressed="false">📈 Average</button>
+  </nav>
+
+  <section class="panel active" id="basic">
+    <div class="card">
+      <h2>Basic Calculator</h2>
+      <div class="screen" aria-live="polite">
+        <div id="expression"></div>
+        <div id="display">0</div>
       </div>
-
       <div class="keys" id="keys">
         <button class="clear" data-action="clear">AC</button>
         <button data-action="delete">DEL</button>
         <button data-action="percent">%</button>
-        <button class="operator" data-value="/">÷</button>
-
+        <button data-value="/">÷</button>
         <button data-value="7">7</button>
         <button data-value="8">8</button>
         <button data-value="9">9</button>
-        <button class="operator" data-value="*">×</button>
-
+        <button data-value="*">×</button>
         <button data-value="4">4</button>
         <button data-value="5">5</button>
         <button data-value="6">6</button>
-        <button class="operator" data-value="-">−</button>
-
+        <button data-value="-">−</button>
         <button data-value="1">1</button>
         <button data-value="2">2</button>
         <button data-value="3">3</button>
-        <button class="operator" data-value="+">+</button>
-
+        <button data-value="+">+</button>
         <button data-action="sign">±</button>
         <button data-value="0">0</button>
         <button data-value=".">.</button>
         <button class="equal" data-action="equal">=</button>
       </div>
+    </div>
+  </section>
+
+  <section class="panel" id="percentage">
+    <div class="card">
+      <h2>Percentage Calculator</h2>
+      <p>Find a percentage of any number.</p>
+      <label for="percent">Percentage (%)</label>
+      <input id="percent" type="number" step="any" placeholder="20">
+      <label for="number">Number</label>
+      <input id="number" type="number" step="any" placeholder="500">
+      <button class="primary" id="percentBtn">Calculate Percentage</button>
+      <div class="result" id="percentResult" aria-live="polite">Enter values above.</div>
+    </div>
+  </section>
+
+  <section class="panel" id="marks">
+    <div class="card">
+      <h2>Marks Percentage Calculator</h2>
+      <p>Find your exam percentage from obtained and total marks.</p>
+      <label for="obtained">Marks Obtained</label>
+      <input id="obtained" type="number" min="0" step="any" placeholder="450">
+      <label for="total">Total Marks</label>
+      <input id="total" type="number" min="0" step="any" placeholder="500">
+      <button class="primary" id="marksBtn">Calculate Marks Percentage</button>
+      <div class="result" id="marksResult" aria-live="polite">Enter your marks above.</div>
+    </div>
+  </section>
+
+  <section class="panel" id="average">
+    <div class="card">
+      <h2>Average Calculator</h2>
+      <p>Enter numbers separated by commas, spaces or new lines.</p>
+      <label for="numbers">Numbers</label>
+      <textarea id="numbers" placeholder="10, 20, 30, 40, 50"></textarea>
+      <button class="primary" id="averageBtn">Calculate Average</button>
+      <div class="result" id="averageResult" aria-live="polite">Enter numbers above.</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Calculation History</h2>
+    <ul class="history-list" id="history"></ul>
+    <button id="clearHistory">Clear History</button>
+  </section>
+
+  <article class="info">
+    <h2>About Sahil Calc</h2>
+    <p>Sahil Calc is a free online calculator designed for students and everyday users. It provides basic arithmetic, percentage calculations, marks percentages and averages in one convenient website. No account is required.</p>
+
+    <section>
+      <h2>Free Online Percentage Calculator</h2>
+      <p>To find a percentage of a number, multiply the number by the percentage and divide by 100. For example, 20% of 500 equals 100. Use our percentage calculator for quick results.</p>
     </section>
 
-    <section class="history">
-      <h2>Calculation History</h2>
-      <ul class="history-list" id="historyList">
-        <li>No calculations yet.</li>
-      </ul>
-      <button class="clear-history" id="clearHistory">
-        Clear History
-      </button>
+    <section>
+      <h2>Student Marks Percentage Calculator</h2>
+      <p>Calculate your school or exam percentage by dividing the marks obtained by the maximum marks and multiplying by 100. For example, 450 marks out of 500 gives 90%.</p>
     </section>
 
-    <section class="info">
-      <h2>About Sahil Calc</h2>
-      <p>
-        Sahil Calc is a free online calculator
-        designed for quick and easy calculations.
-        You can add, subtract, multiply, divide
-        and calculate percentages directly in
-        your browser.
-      </p>
+    <section>
+      <h2>Free Online Average Calculator</h2>
+      <p>Find the arithmetic mean of multiple numbers by adding all values and dividing by the number of values. For example, the average of 10, 20 and 30 is 20.</p>
+    </section>
 
-      <h2>How to Use This Calculator</h2>
-      <p>
-        Enter numbers using the calculator buttons
-        or your keyboard. Choose an operation and
-        press equals to calculate the result.
-        Use AC to start again or DEL to correct
-        your input.
-      </p>
-
-      <h2>Features</h2>
-      <p>
-        Sahil Calc supports basic arithmetic,
-        decimal calculations, percentages,
-        keyboard input, calculation history,
-        dark mode and light mode. It works
-        on desktop and mobile browsers.
-      </p>
-
+    <section>
       <h2>Frequently Asked Questions</h2>
-
       <h3>Is Sahil Calc free?</h3>
-      <p>
-        Yes. Sahil Calc is completely free
-        to use, with no registration required.
-      </p>
-
-      <h3>Can I use Sahil Calc on my phone?</h3>
-      <p>
-        Yes. The calculator has a responsive
-        design for phones, tablets and computers.
-      </p>
-
-      <h3>Does Sahil Calc save my calculations?</h3>
-      <p>
-        Recent calculations are saved locally
-        in your browser when local storage is
-        available. You can clear them anytime.
-      </p>
+      <p>Yes. All calculators on Sahil Calc are free to use.</p>
+      <h3>Can I calculate my exam percentage?</h3>
+      <p>Yes. Enter your obtained marks and total marks in the Marks Calculator.</p>
+      <h3>Can I calculate the average of multiple numbers?</h3>
+      <p>Yes. Enter numbers separated by commas, spaces or new lines.</p>
+      <h3>Does Sahil Calc work on mobile?</h3>
+      <p>Yes. Sahil Calc is designed for mobile phones, tablets and desktop browsers.</p>
     </section>
-  </main>
+  </article>
+</main>
 
-  <footer>
-    <p>© 2026 Sahil Calc. All rights reserved.</p>
-    <p>Free Online Calculator</p>
-  </footer>
+<footer>
+  <p>© 2026 Sahil Calc. All rights reserved.</p>
+  <p>Free Online Calculator</p>
+</footer>
 
-  <script>
-    "use strict";
+<script>
+"use strict";
 
-    const display = document.getElementById("display");
-    const expressionDisplay = document.getElementById("expression");
-    const historyList = document.getElementById("historyList");
-    const themeButton = document.getElementById("themeButton");
+const $ = id => document.getElementById(id);
+let current="0", previous=null, operator=null;
+let waiting=false, error=false, history=[];
 
-    let current = "0";
-    let previous = null;
-    let operator = null;
-    let waiting = false;
-    let error = false;
-    let history = [];
+function fmt(n) {
+  if(!Number.isFinite(n)) return "Error";
+  const x=Number(n.toPrecision(12));
+  return String(Object.is(x,-0)?0:x);
+}
+function sym(o) {
+  return {"*":"×","/":"÷","-":"−","+":"+"}[o]||o;
+}
+function update() {
+  $("display").textContent=current;
+  $("expression").textContent=operator!==null
+    ?previous+" "+sym(operator):"";
+}
+function reset() {
+  current="0";previous=null;operator=null;
+  waiting=false;error=false;update();
+}
+function digit(d) {
+  if(error)reset();
+  if(waiting){current=d;waiting=false;}
+  else if(current==="0")current=d;
+  else if(current==="-0")current="-"+d;
+  else if(current.replace(/[-.]/g,"").length<15)current+=d;
+  update();
+}
+function decimal() {
+  if(error)reset();
+  if(waiting){current="0.";waiting=false;}
+  else if(!current.includes("."))current+=".";
+  update();
+}
+function compute(a,b,o) {
+  if(o==="+")return a+b;
+  if(o==="-")return a-b;
+  if(o==="*")return a*b;
+  if(o==="/")return b===0?NaN:a/b;
+  return b;
+}
+function fail() {
+  current="Error";previous=null;operator=null;
+  error=true;waiting=false;update();
+}
+function operation(o) {
+  if(error)return;
+  if(operator!==null&&!waiting) {
+    const result=compute(Number(previous),Number(current),operator);
+    if(!Number.isFinite(result)){fail();return;}
+    current=fmt(result);
+  }
+  previous=current;operator=o;waiting=true;update();
+}
+function equals() {
+  if(error||operator===null||waiting)return;
+  const result=compute(Number(previous),Number(current),operator);
+  if(!Number.isFinite(result)){fail();return;}
+  const expression=previous+" "+sym(operator)+" "+current;
+  current=fmt(result);
+  addHistory(expression,current);
+  previous=null;operator=null;waiting=true;update();
+  $("expression").textContent=expression+" =";
+}
+function del() {
+  if(error){reset();return;}
+  if(waiting)return;
+  current=current.slice(0,-1);
+  if(current===""||current==="-")current="0";
+  update();
+}
+function percentBasic() {
+  if(error)return;
+  current=fmt(Number(current)/100);
+  waiting=false;update();
+}
+function sign() {
+  if(error)return;
+  if(current.startsWith("-"))current=current.slice(1);
+  else if(Number(current)!==0)current="-"+current;
+  update();
+}
+function getNum(id) {
+  const value=$(id).value.trim();
+  if(!value)return null;
+  const n=Number(value);
+  return Number.isFinite(n)?n:null;
+}
+function saveHistory() {
+  try {
+    localStorage.setItem("sahilHistory",JSON.stringify(history));
+  }catch(e){}
+}
+function addHistory(label,result) {
+  history.unshift({label:String(label),result:String(result)});
+  history=history.slice(0,10);
+  saveHistory();renderHistory();
+}
+function renderHistory() {
+  $("history").replaceChildren();
+  if(!history.length) {
+    const li=document.createElement("li");
+    li.textContent="No calculations yet.";
+    $("history").appendChild(li);
+    return;
+  }
+  history.forEach(item=>{
+    const li=document.createElement("li");
+    li.textContent=item.label+" = "+item.result;
+    $("history").appendChild(li);
+  });
+}
+try {
+  const saved=JSON.parse(localStorage.getItem("sahilHistory"));
+  if(Array.isArray(saved)) {
+    history=saved.filter(x=>x&&typeof x.label==="string"
+      &&typeof x.result==="string").slice(0,10);
+  }
+}catch(e){}
 
-    try {
-      const saved = JSON.parse(localStorage.getItem("sahilHistory"));
-      if (Array.isArray(saved)) {
-        history = saved.filter(item =>
-          item &&
-          typeof item.expression === "string" &&
-          typeof item.result === "string"
-        ).slice(0, 10);
-      }
-    } catch (e) {
-      history = [];
-    }
+$("keys").addEventListener("click",e=>{
+  const b=e.target.closest("button");
+  if(!b)return;
+  const v=b.dataset.value;
+  if(v!==undefined) {
+    if(/^[0-9]$/.test(v))digit(v);
+    else if(v===".")decimal();
+    else operation(v);
+  }else {
+    const a=b.dataset.action;
+    if(a==="clear")reset();
+    if(a==="delete")del();
+    if(a==="percent")percentBasic();
+    if(a==="sign")sign();
+    if(a==="equal")equals();
+  }
+});
 
-    try {
-      if (localStorage.getItem("sahilTheme") === "light") {
-        document.body.classList.add("light");
-      }
-    } catch (e) {}
+document.addEventListener("keydown",e=>{
+  if(e.ctrlKey||e.altKey||e.metaKey)return;
+  if(e.target.matches("input,textarea"))return;
+  if(!$("basic").classList.contains("active"))return;
+  const k=e.key;
+  if(/^[0-9]$/.test(k))digit(k);
+  else if(k===".")decimal();
+  else if(["+","-","*","/"].includes(k)){
+    e.preventDefault();operation(k);
+  }else if(k==="Enter"||k==="="){
+    e.preventDefault();equals();
+  }else if(k==="Backspace"){e.preventDefault();del();}
+  else if(k==="Escape")reset();
+  else if(k==="%")percentBasic();
+});
 
-    updateThemeButton();
+$("percentBtn").addEventListener("click",()=>{
+  const p=getNum("percent"),n=getNum("number");
+  if(p===null||n===null){
+    $("percentResult").textContent="Enter valid numbers.";
+    return;
+  }
+  const result=n*p/100;
+  if(!Number.isFinite(result)){
+    $("percentResult").textContent="Result is too large.";
+    return;
+  }
+  const value=fmt(result);
+  $("percentResult").textContent=fmt(p)+"% of "+fmt(n)+" = "+value;
+  addHistory(fmt(p)+"% of "+fmt(n),value);
+});
 
-    function formatNumber(number) {
-      if (!Number.isFinite(number)) return "Error";
-      const rounded = Number(number.toPrecision(12));
-      return String(Object.is(rounded, -0) ? 0 : rounded);
-    }
+$("marksBtn").addEventListener("click",()=>{
+  const a=getNum("obtained"),b=getNum("total");
+  if(a===null||b===null||a<0||b<=0||a>b){
+    $("marksResult").textContent="Enter valid marks. Total must be positive and obtained marks cannot exceed total.";
+    return;
+  }
+  const value=fmt(a/b*100)+"%";
+  $("marksResult").textContent="Your percentage: "+value;
+  addHistory(fmt(a)+" out of "+fmt(b),value);
+});
 
-    function symbol(op) {
-      return { "*": "×", "/": "÷", "-": "−", "+": "+" }[op] || op;
-    }
+$("averageBtn").addEventListener("click",()=>{
+  const raw=$("numbers").value.trim();
+  if(!raw){
+    $("averageResult").textContent="Enter at least one number.";
+    return;
+  }
+  const parts=raw.split(/[\s,]+/);
+  if(parts.length>1000){
+    $("averageResult").textContent="Maximum 1000 numbers.";
+    return;
+  }
+  const nums=parts.map(Number);
+  if(nums.some(n=>!Number.isFinite(n))){
+    $("averageResult").textContent="Enter valid numbers.";
+    return;
+  }
+  const sum=nums.reduce((a,b)=>a+b,0);
+  const avg=sum/nums.length;
+  if(!Number.isFinite(avg)||!Number.isFinite(sum)){
+    $("averageResult").textContent="Result is too large.";
+    return;
+  }
+  const value=fmt(avg);
+  $("averageResult").textContent="Count: "+nums.length+
+    " | Sum: "+fmt(sum)+" | Average: "+value;
+  addHistory("Average of "+nums.length+" numbers",value);
+});
 
-    function updateDisplay() {
-      display.textContent = current;
-      expressionDisplay.textContent =
-        operator !== null
-          ? previous + " " + symbol(operator)
-          : "";
-    }
-
-    function reset() {
-      current = "0";
-      previous = null;
-      operator = null;
-      waiting = false;
-      error = false;
-      updateDisplay();
-    }
-
-    function inputDigit(digit) {
-      if (error) reset();
-
-      if (waiting) {
-        current = digit;
-        waiting = false;
-      } else if (current === "0") {
-        current = digit;
-      } else if (current === "-0") {
-        current = "-" + digit;
-      } else if (current.replace(/[-.]/g, "").length < 15) {
-        current += digit;
-      }
-
-      updateDisplay();
-    }
-
-    function inputDecimal() {
-      if (error) reset();
-
-      if (waiting) {
-        current = "0.";
-        waiting = false;
-      } else if (!current.includes(".")) {
-        current += ".";
-      }
-
-      updateDisplay();
-    }
-
-    function calculate(a, b, op) {
-      switch (op) {
-        case "+": return a + b;
-        case "-": return a - b;
-        case "*": return a * b;
-        case "/": return b === 0 ? NaN : a / b;
-        default: return b;
-      }
-    }
-
-    function setOperator(nextOperator) {
-      if (error) return;
-
-      if (operator !== null && !waiting) {
-        const result = calculate(
-          Number(previous),
-          Number(current),
-          operator
-        );
-
-        if (!Number.isFinite(result)) {
-          showError();
-          return;
-        }
-
-        current = formatNumber(result);
-      }
-
-      previous = current;
-      operator = nextOperator;
-      waiting = true;
-      updateDisplay();
-    }
-
-    function showError() {
-      current = "Error";
-      previous = null;
-      operator = null;
-      waiting = false;
-      error = true;
-      updateDisplay();
-    }
-
-    function equals() {
-      if (error || operator === null || waiting) return;
-
-      const a = Number(previous);
-      const b = Number(current);
-      const result = calculate(a, b, operator);
-
-      if (!Number.isFinite(result)) {
-        showError();
-        return;
-      }
-
-      const formatted = formatNumber(result);
-      const calculation =
-        previous + " " + symbol(operator) +
-        " " + current;
-
-      addHistory(calculation, formatted);
-
-      current = formatted;
-      previous = null;
-      operator = null;
-      waiting = true;
-      updateDisplay();
-
-      expressionDisplay.textContent =
-        calculation + " =";
-    }
-
-    function deleteLast() {
-      if (error) {
-        reset();
-        return;
-      }
-
-      if (waiting) return;
-
-      current = current.length > 1
-        ? current.slice(0, -1)
-        : "0";
-
-      if (current === "-" || current === "") {
-        current = "0";
-      }
-
-      updateDisplay();
-    }
-
-    function percent() {
-      if (error) return;
-
-      current = formatNumber(Number(current) / 100);
-      waiting = false;
-      updateDisplay();
-    }
-
-    function toggleSign() {
-      if (error) return;
-
-      if (current.startsWith("-")) {
-        current = current.slice(1);
-      } else if (Number(current) !== 0) {
-        current = "-" + current;
-      }
-
-      updateDisplay();
-    }
-
-    function addHistory(expression, result) {
-      history.unshift({ expression, result });
-      history = history.slice(0, 10);
-
-      try {
-        localStorage.setItem(
-          "sahilHistory",
-          JSON.stringify(history)
-        );
-      } catch (e) {}
-
-      renderHistory();
-    }
-
-    function renderHistory() {
-      historyList.replaceChildren();
-
-      if (history.length === 0) {
-        const li = document.createElement("li");
-        li.textContent = "No calculations yet.";
-        historyList.appendChild(li);
-        return;
-      }
-
-      history.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent =
-          item.expression + " = " + item.result;
-        historyList.appendChild(li);
-      });
-    }
-
-    document.getElementById("keys").addEventListener(
-      "click",
-      event => {
-        const button = event.target.closest("button");
-        if (!button) return;
-
-        const value = button.dataset.value;
-        const action = button.dataset.action;
-
-        if (value !== undefined) {
-          if (/^[0-9]$/.test(value)) inputDigit(value);
-          else if (value === ".") inputDecimal();
-          else setOperator(value);
-        } else {
-          switch (action) {
-            case "clear": reset(); break;
-            case "delete": deleteLast(); break;
-            case "percent": percent(); break;
-            case "sign": toggleSign(); break;
-            case "equal": equals(); break;
-          }
-        }
-      }
-    );
-
-    document.addEventListener("keydown", event => {
-      if (event.ctrlKey || event.altKey || event.metaKey) {
-        return;
-      }
-
-      const key = event.key;
-
-      if (/^[0-9]$/.test(key)) inputDigit(key);
-      else if (key === ".") inputDecimal();
-      else if (["+", "-", "*", "/"].includes(key)) {
-        event.preventDefault();
-        setOperator(key);
-      } else if (key === "Enter" || key === "=") {
-        event.preventDefault();
-        equals();
-      } else if (key === "Backspace") {
-        event.preventDefault();
-        deleteLast();
-      } else if (key === "Escape") {
-        reset();
-      } else if (key === "%") {
-        percent();
-      }
+document.querySelectorAll(".tab").forEach(b=>{
+  b.addEventListener("click",()=>{
+    document.querySelectorAll(".tab").forEach(t=>{
+      const active=t===b;
+      t.classList.toggle("active",active);
+      t.setAttribute("aria-pressed",String(active));
     });
-
-    document.getElementById("clearHistory")
-      .addEventListener("click", () => {
-        history = [];
-
-        try {
-          localStorage.removeItem("sahilHistory");
-        } catch (e) {}
-
-        renderHistory();
-      });
-
-    function updateThemeButton() {
-      themeButton.textContent =
-        document.body.classList.contains("light")
-          ? "🌙 Dark Mode"
-          : "☀️ Light Mode";
-    }
-
-    themeButton.addEventListener("click", () => {
-      document.body.classList.toggle("light");
-      updateThemeButton();
-
-      try {
-        localStorage.setItem(
-          "sahilTheme",
-          document.body.classList.contains("light")
-            ? "light"
-            : "dark"
-        );
-      } catch (e) {}
+    document.querySelectorAll(".panel").forEach(p=>{
+      p.classList.toggle("active",p.id===b.dataset.tab);
     });
+  });
+});
 
-    renderHistory();
-    updateDisplay();
-  </script>
+function updateTheme() {
+  $("theme").textContent=document.body.classList.contains("light")
+    ?"🌙 Dark Mode":"☀️ Light Mode";
+}
+try {
+  if(localStorage.getItem("sahilTheme")==="light")
+    document.body.classList.add("light");
+}catch(e){}
+$("theme").addEventListener("click",()=>{
+  document.body.classList.toggle("light");
+  updateTheme();
+  try {
+    localStorage.setItem("sahilTheme",
+      document.body.classList.contains("light")?"light":"dark");
+  }catch(e){}
+});
+$("clearHistory").addEventListener("click",()=>{
+  history=[];
+  saveHistory();
+  renderHistory();
+});
+updateTheme();renderHistory();update();
+</script>
 </body>
 </html>
